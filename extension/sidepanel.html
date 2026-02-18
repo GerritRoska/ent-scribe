@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ENT Scribe</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; height: 100vh; overflow-y: auto; }
+
+    .screen { display: none; flex-direction: column; padding: 16px; min-height: 100vh; }
+    .screen.active { display: flex; }
+
+    /* HOME */
+    .header { text-align: center; margin-bottom: 20px; padding-top: 12px; }
+    .header h1 { font-size: 22px; font-weight: 700; color: #2563eb; }
+    .header p { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+    .label { font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 6px; display: block; }
+    select { width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 14px; background: white; color: #1e293b; margin-bottom: 6px; }
+    .template-link { font-size: 11px; color: #2563eb; cursor: pointer; text-decoration: underline; margin-bottom: 16px; display: inline-block; }
+    .btn-primary { width: 100%; padding: 16px; background: #2563eb; color: white; border: none; border-radius: 14px; font-size: 17px; font-weight: 700; cursor: pointer; transition: background 0.15s; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-primary:disabled { background: #cbd5e1; cursor: not-allowed; }
+
+    /* RECORD */
+    .back-row { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+    .back-btn { background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 13px; }
+    .visit-title { font-weight: 700; font-size: 16px; }
+    .visit-sub { font-size: 11px; color: #2563eb; font-weight: 600; }
+    .record-center { display: flex; flex-direction: column; align-items: center; gap: 12px; margin: 20px 0; }
+    .record-btn { width: 110px; height: 110px; border-radius: 50%; border: none; font-size: 18px; font-weight: 700; color: white; background: #2563eb; cursor: pointer; transition: all 0.2s; }
+    .record-btn.recording { background: #ef4444; transform: scale(1.08); }
+    .record-btn:disabled { background: #94a3b8; cursor: not-allowed; }
+    .timer { font-family: monospace; font-size: 18px; color: #ef4444; display: none; align-items: center; gap: 6px; }
+    .timer.visible { display: flex; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #ef4444; animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:0.3 } }
+    .hint { font-size: 12px; color: #94a3b8; }
+    .transcript-box { background: #f1f5f9; border-radius: 12px; padding: 12px; margin-top: 8px; max-height: 180px; overflow-y: auto; font-size: 13px; color: #475569; line-height: 1.6; }
+    .transcript-label { font-size: 10px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+
+    /* GENERATING */
+    .generating { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 12px; flex: 1; }
+    .generating.visible { display: flex; }
+    .spinner { width: 36px; height: 36px; border: 3px solid #e2e8f0; border-top-color: #2563eb; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* NOTE */
+    .copy-btn { width: 100%; padding: 12px; background: #2563eb; color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 12px; transition: background 0.15s; }
+    .copy-btn.copied { background: #16a34a; }
+    .copy-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+    .note-area { width: 100%; font-family: monospace; font-size: 12px; color: #1e293b; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; resize: vertical; min-height: 300px; }
+    .disclaimer { margin-top: 10px; padding: 10px 12px; background: #fffbeb; border: 1px solid #fcd34d; border-radius: 8px; font-size: 11px; color: #92400e; }
+    .new-visit-btn { margin-top: 10px; width: 100%; padding: 10px; background: none; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 13px; color: #475569; cursor: pointer; }
+
+    /* TEMPLATES */
+    .template-item { background: white; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 8px; overflow: hidden; }
+    .template-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; cursor: pointer; }
+    .template-name { font-size: 13px; font-weight: 600; }
+    .tag { font-size: 10px; background: #dbeafe; color: #1d4ed8; padding: 2px 8px; border-radius: 99px; }
+    .template-preview { display: none; font-family: monospace; font-size: 11px; color: #1e293b; padding: 0 12px 12px; white-space: pre-wrap; max-height: 150px; overflow-y: auto; }
+    .template-preview.open { display: block; }
+    .delete-btn { background: none; border: none; color: #f87171; font-size: 11px; cursor: pointer; }
+    .add-template { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; margin-bottom: 16px; }
+    .add-template h3 { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+    .input { width: 100%; padding: 8px 10px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 13px; margin-bottom: 8px; color: #1e293b; background: white; }
+    textarea.input { font-family: monospace; font-size: 12px; resize: vertical; min-height: 100px; }
+    .btn-save { padding: 8px 18px; background: #2563eb; color: white; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<!-- PERMISSION SCREEN -->
+<div id="screen-permission" class="screen">
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:24px;text-align:center;gap:16px;min-height:100vh;">
+    <div style="font-size:48px;">🎙️</div>
+    <h2 style="font-size:20px;font-weight:700;color:#1e293b;">Microphone Access Needed</h2>
+    <p style="font-size:14px;color:#64748b;line-height:1.6;">ENT Scribe needs microphone access to record patient visits and generate notes.</p>
+    <button class="btn-primary" id="request-mic-btn" style="margin-top:8px;">Allow Microphone Access</button>
+    <div id="mic-denied" style="display:none;background:#fef2f2;border:1px solid #fca5a5;border-radius:10px;padding:12px;font-size:12px;color:#991b1b;line-height:1.6;">
+      <strong>Access was denied.</strong><br/>
+      To fix this:<br/>
+      1. Click the <strong>🔒 lock icon</strong> next to the address bar<br/>
+      2. Find "Microphone" and set it to <strong>Allow</strong><br/>
+      3. Click <strong>Try Again</strong> below
+      <br/><br/>
+      <button id="retry-mic-btn" style="padding:6px 16px;background:#2563eb;color:white;border:none;border-radius:8px;font-size:12px;cursor:pointer;">Try Again</button>
+    </div>
+  </div>
+</div>
+
+<!-- HOME SCREEN -->
+<div id="screen-home" class="screen active">
+  <div class="header">
+    <h1>ENT Scribe</h1>
+    <p>Ambient AI medical scribe for ENT</p>
+  </div>
+  <label class="label">Patient Name <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+  <input type="text" id="patient-name" class="input" placeholder="e.g. John Smith" style="margin-bottom:10px;" />
+
+  <label class="label">Date of Birth <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+  <input type="date" id="patient-dob" class="input" style="margin-bottom:14px;" />
+
+  <label class="label">Visit Type / Template</label>
+  <select id="template-select"></select>
+  <span class="template-link" id="go-templates">Manage templates →</span>
+  <button class="btn-primary" id="start-btn">Start Visit</button>
+  <p style="font-size:11px;color:#94a3b8;text-align:center;margin-top:14px;">Audio sent to OpenAI Whisper. Always review before pasting into eClinicalWorks.</p>
+</div>
+
+<!-- RECORD SCREEN -->
+<div id="screen-record" class="screen">
+  <div class="back-row">
+    <button class="back-btn" id="back-home">← Back</button>
+    <div>
+      <div class="visit-title">Recording Visit</div>
+      <div class="visit-sub" id="record-template-name"></div>
+    </div>
+  </div>
+  <div class="record-center">
+    <div class="timer" id="timer"><div class="dot"></div><span id="timer-text">00:00</span></div>
+    <button class="record-btn" id="record-btn">START</button>
+    <p class="hint" id="record-hint">Tap to begin recording</p>
+  </div>
+  <div id="transcript-section" style="display:none">
+    <div class="transcript-label">Live Transcript</div>
+    <div class="transcript-box" id="transcript-box"></div>
+  </div>
+  <div class="generating" id="generating">
+    <div class="spinner"></div>
+    <p style="font-size:14px;color:#64748b;font-weight:500;">Generating ENT note…</p>
+  </div>
+</div>
+
+<!-- NOTE SCREEN -->
+<div id="screen-note" class="screen">
+  <div class="back-row" style="justify-content:space-between">
+    <button class="back-btn" id="note-home">← Home</button>
+    <strong style="font-size:15px;">Visit Note</strong>
+    <button class="back-btn" id="note-new" style="color:#2563eb;">New Visit</button>
+  </div>
+  <button class="copy-btn" id="copy-btn">Copy to Clipboard</button>
+  <textarea class="note-area" id="note-area" placeholder="Generated note will appear here…"></textarea>
+  <div class="disclaimer">⚕ Physician review required. Verify all clinical details before entering into eClinicalWorks.</div>
+</div>
+
+<!-- TEMPLATES SCREEN -->
+<div id="screen-templates" class="screen">
+  <div class="back-row">
+    <button class="back-btn" id="back-from-templates">← Back</button>
+    <strong style="font-size:16px;">Templates</strong>
+  </div>
+  <div class="add-template">
+    <h3>Add Custom Template</h3>
+    <input class="input" id="new-template-name" placeholder="Template name (e.g. Laryngoscopy)" />
+    <textarea class="input" id="new-template-content" placeholder="Paste your eClinicalWorks template here…"></textarea>
+    <button class="btn-save" id="save-template-btn">Save Template</button>
+  </div>
+  <div id="templates-list"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

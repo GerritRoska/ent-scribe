@@ -1,65 +1,177 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { getTemplates, Template } from "@/lib/templates";
+
+function HomeContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const showNew = searchParams.get("new") === "1";
+
+  const [templates, setTemplates] = useState<Template[]>([]);
+  const [selectedId, setSelectedId] = useState<string>("");
+  const [patientName, setPatientName] = useState("");
+  const [patientDob, setPatientDob] = useState("");
+
+  useEffect(() => {
+    const t = getTemplates();
+    setTemplates(t);
+    if (t.length > 0) setSelectedId(t[0].id);
+  }, []);
+
+  const handleStart = () => {
+    if (!selectedId) return;
+    const params = new URLSearchParams({ templateId: selectedId });
+    if (patientName.trim()) params.set("name", patientName.trim());
+    if (patientDob) params.set("dob", patientDob);
+    router.push(`/record?${params.toString()}`);
+  };
+
+  if (showNew) {
+    return (
+      <div className="flex items-center justify-center h-full min-h-screen">
+        <div className="w-full max-w-sm px-6">
+          <h1 className="text-2xl font-bold text-gray-900 text-center mb-8">
+            New Interview
+          </h1>
+          <div className="flex flex-col gap-5">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Patient Name
+              </label>
+              <input
+                type="text"
+                value={patientName}
+                onChange={(e) => setPatientName(e.target.value)}
+                placeholder="Enter patient name (optional)"
+                autoFocus
+                onKeyDown={(e) => e.key === "Enter" && handleStart()}
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 bg-white"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Date of Birth
+              </label>
+              <input
+                type="date"
+                value={patientDob}
+                onChange={(e) => setPatientDob(e.target.value)}
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 bg-white"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Note Type
+              </label>
+              <div className="relative">
+                <select
+                  value={selectedId}
+                  onChange={(e) => setSelectedId(e.target.value)}
+                  className="w-full appearance-none bg-white border border-gray-200 rounded-xl px-4 py-3 pr-10 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 cursor-pointer"
+                >
+                  {templates.map((t) => (
+                    <option key={t.id} value={t.id}>
+                      {t.name}{!t.isDefault ? " ★" : ""}
+                    </option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-5 pt-1">
+              <button
+                onClick={() => router.push("/")}
+                className="text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleStart}
+                disabled={!selectedId}
+                className="flex items-center gap-2 bg-gray-900 hover:bg-black disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold text-sm py-2.5 px-5 rounded-full transition-colors"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <rect x="9" y="2" width="6" height="12" rx="3" fill="currentColor" />
+                  <path
+                    d="M5 11C5 14.866 8.13401 18 12 18C15.866 18 19 14.866 19 11"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <line x1="12" y1="18" x2="12" y2="22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  <line x1="8" y1="22" x2="16" y2="22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+                Start Recording
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center justify-center h-full min-h-screen">
+      <div className="flex flex-col items-center gap-5 text-center px-8">
+        <div className="w-20 h-20 bg-gray-900 rounded-full flex items-center justify-center shadow-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
+            <rect x="9" y="2" width="6" height="12" rx="3" fill="white" />
+            <path
+              d="M5 11C5 14.866 8.13401 18 12 18C15.866 18 19 14.866 19 11"
+              stroke="white"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+            <line x1="12" y1="18" x2="12" y2="22" stroke="white" strokeWidth="2" strokeLinecap="round" />
+            <line x1="8" y1="22" x2="16" y2="22" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </div>
+        <div>
+          <h2 className="text-xl font-bold text-gray-900">Start a new interview</h2>
+          <p className="text-gray-500 text-sm mt-1.5 max-w-xs leading-relaxed">
+            Record, transcribe, and generate clinical notes automatically.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center h-screen">
+          <div className="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      }
+    >
+      <HomeContent />
+    </Suspense>
   );
 }
