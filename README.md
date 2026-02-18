@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ENT Scribe
 
-## Getting Started
+An open-source ambient AI medical scribe built specifically for ENT (Ear, Nose & Throat) physicians. Record a patient visit, get a structured clinical note — ready to paste into your EHR.
 
-First, run the development server:
+**Live demo → [ent-scribe.vercel.app](https://ent-scribe.vercel.app)**
+
+---
+
+## What it does
+
+1. **Select a visit type** — choose from built-in ENT templates (New Patient, Sinus/Rhinitis, Hearing Evaluation, Nasal Endoscopy, Post-Op) or create your own.
+2. **Record the visit** — press Start and speak naturally. Audio is chunked and transcribed in real time via OpenAI Whisper.
+3. **Get a structured note** — GPT-4o fills in the template using only what was said. Nothing is inferred or fabricated.
+4. **Copy to EHR** — review, edit, and paste directly into eClinicalWorks or any EHR.
+
+---
+
+## Built-in templates
+
+| Template | Use case |
+|---|---|
+| New Patient ENT | Full H&P with HPI, PMH, exam, assessment & plan |
+| Sinus / Rhinitis | Focused nasal/sinus visit |
+| Hearing Evaluation | Includes audiogram fields, Weber/Rinne |
+| Nasal Endoscopy | Procedure note with bilateral findings |
+| Post-Op Check | Post-surgical follow-up |
+
+Custom templates can be created and managed from the Templates page — stored locally in your browser.
+
+---
+
+## Tech stack
+
+- **Next.js 16** (App Router) + TypeScript
+- **Tailwind CSS v4**
+- **OpenAI API** — Whisper for transcription, GPT-4o for note generation
+- Deployed on **Vercel**
+
+---
+
+## Getting started
+
+### Prerequisites
+
+- Node.js 18+
+- An [OpenAI API key](https://platform.openai.com/api-keys)
+
+### Setup
+
+```bash
+git clone https://github.com/GerritRoska/ent-scribe.git
+cd ent-scribe
+npm install
+```
+
+Create a `.env.local` file:
+
+```
+OPENAI_API_KEY=sk-...
+```
+
+Run the dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment
 
-## Learn More
+Deploy instantly with Vercel:
 
-To learn more about Next.js, take a look at the following resources:
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/GerritRoska/ent-scribe)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Set `OPENAI_API_KEY` in your Vercel environment variables.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Privacy & disclaimer
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Audio is sent to OpenAI's API for transcription. Review [OpenAI's data policies](https://openai.com/policies/api-data-usage-policies) before use in clinical settings.
+- This tool is intended to assist documentation — **always review notes before adding to a patient record.**
+- Not a substitute for clinical judgment.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Contributing
+
+Pull requests welcome. To add a new default template, edit `lib/templates.ts`.
+
+## License
+
+MIT
