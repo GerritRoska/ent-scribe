@@ -6,6 +6,8 @@ import { getTemplates, Template } from "@/lib/templates";
 import TranscriptView from "@/components/TranscriptView";
 
 const WAVEFORM_HEIGHTS = [4, 8, 14, 18, 12, 16, 8, 18, 14, 6];
+const TRANSCRIBE_MAX_RETRIES = 3;
+const TRANSCRIBE_RETRY_DELAY_MS = 300;
 
 function RecordPageContent() {
   const router = useRouter();
@@ -24,10 +26,12 @@ function RecordPageContent() {
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const transcriptPartsRef = useRef<string[]>([]);
-  const pendingChunksRef = useRef<Promise<void>[]>([]);
+  const transcriptionQueueRef = useRef<Promise<void>>(Promise.resolve());
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const hasStartedRef = useRef(false);
+
+  const wait = useCallback((ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)), []);
 
   useEffect(() => {
     const templates = getTemplates();
@@ -36,20 +40,48 @@ function RecordPageContent() {
   }, [templateId]);
 
   const sendChunk = useCallback(async (blob: Blob) => {
-    if (blob.size < 1000) return;
-    const formData = new FormData();
-    formData.append("audio", blob);
-    try {
-      const res = await fetch("/api/transcribe", { method: "POST", body: formData });
-      const data = await res.json();
-      if (data.text) {
-        transcriptPartsRef.current.push(data.text);
-        setTranscriptChunks((prev) => [...prev, data.text]);
+    if (blob.size === 0) return;
+
+    for (let attempt = 1; attempt <= TRANSCRIBE_MAX_RETRIES; attempt += 1) {
+      try {
+        const formData = new FormData();
+        formData.append("audio", blob);
+        const res = await fetch("/api/transcribe", { method: "POST", body: formData });
+        if (!res.ok) {
+          const errorBody = await res.text();
+          if (attempt === TRANSCRIBE_MAX_RETRIES) {
+            console.error("Chunk transcription failed:", res.status, errorBody);
+            return;
+          }
+          await wait(TRANSCRIBE_RETRY_DELAY_MS * attempt);
+          continue;
+        }
+
+        const data = await res.json();
+        if (data.text) {
+          transcriptPartsRef.current.push(data.text);
+          setTranscriptChunks((prev) => [...prev, data.text]);
+        }
+        return;
+      } catch (err) {
+        if (attempt === TRANSCRIBE_MAX_RETRIES) {
+          console.error("Chunk transcription error:", err);
+          return;
+        }
+        await wait(TRANSCRIBE_RETRY_DELAY_MS * attempt);
       }
-    } catch (err) {
-      console.error("Chunk transcription error:", err);
     }
-  }, []);
+  }, [wait]);
+
+  const enqueueChunk = useCallback(
+    (blob: Blob) => {
+      // Serialize chunk uploads to avoid overlapping transcribe requests.
+      transcriptionQueueRef.current = transcriptionQueueRef.current
+        .catch(() => undefined)
+        .then(() => sendChunk(blob));
+    },
+    [sendChunk]
+  );
 
   const startRecording = useCallback(async () => {
     try {
@@ -63,12 +95,12 @@ function RecordPageContent() {
       const recorder = new MediaRecorder(stream, { mimeType });
       mediaRecorderRef.current = recorder;
       transcriptPartsRef.current = [];
-      pendingChunksRef.current = [];
+      transcriptionQueueRef.current = Promise.resolve();
 
       recorder.ondataavailable = (e) => {
         if (e.data.size > 0) {
           const blob = new Blob([e.data], { type: mimeType });
-          pendingChunksRef.current.push(sendChunk(blob));
+          enqueueChunk(blob);
         }
       };
 
@@ -82,7 +114,7 @@ function RecordPageContent() {
       console.error("Mic error:", err);
       alert("Could not access microphone. Please allow microphone access and try again.");
     }
-  }, [sendChunk]);
+  }, [enqueueChunk]);
 
   const pauseRecording = useCallback(() => {
     const recorder = mediaRecorderRef.current;
@@ -112,8 +144,8 @@ function RecordPageContent() {
       if (recorder.state === "paused") recorder.resume();
 
       recorder.onstop = async () => {
-        // Wait for all in-flight chunk transcriptions (including the final ondataavailable chunk)
-        await Promise.all(pendingChunksRef.current);
+        // Wait for all queued chunk transcriptions, including the final stop chunk.
+        await transcriptionQueueRef.current;
 
         streamRef.current?.getTracks().forEach((t) => t.stop());
         setIsRecording(false);
