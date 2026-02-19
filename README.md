@@ -9,7 +9,7 @@ An open-source ambient AI medical scribe built specifically for ENT (Ear, Nose &
 ## What it does
 
 1. **Select a visit type** — choose from built-in ENT templates (New Patient, Sinus/Rhinitis, Hearing Evaluation, Nasal Endoscopy, Post-Op) or create your own.
-2. **Record the visit** — press Start and speak naturally. Audio is chunked and transcribed in real time via OpenAI Whisper.
+2. **Record the visit** — press Start and speak naturally. Audio is chunked and transcribed in near real time.
 3. **Get a structured note** — GPT-4o fills in the template using only what was said. Nothing is inferred or fabricated.
 4. **Copy to EHR** — review, edit, and paste directly into eClinicalWorks or any EHR.
 
@@ -33,7 +33,8 @@ Custom templates can be created and managed from the Templates page — stored l
 
 - **Next.js 16** (App Router) + TypeScript
 - **Tailwind CSS v4**
-- **OpenAI API** — Whisper for transcription, GPT-4o for note generation
+- **Deepgram API** — speech-to-text (default, configurable)
+- **OpenAI API** — GPT-4o for note generation (and optional transcription fallback)
 - Deployed on **Vercel**
 
 ---
@@ -43,6 +44,7 @@ Custom templates can be created and managed from the Templates page — stored l
 ### Prerequisites
 
 - Node.js 18+
+- A [Deepgram API key](https://console.deepgram.com/project)
 - An [OpenAI API key](https://platform.openai.com/api-keys)
 
 ### Setup
@@ -56,7 +58,18 @@ npm install
 Create a `.env.local` file:
 
 ```
+TRANSCRIPTION_PROVIDER=deepgram
+DEEPGRAM_API_KEY=dg_...
+DEEPGRAM_MODEL=nova-3-medical
 OPENAI_API_KEY=sk-...
+```
+
+Optional fallback:
+
+```
+# Set to "openai" to use OpenAI transcription instead of Deepgram
+TRANSCRIPTION_PROVIDER=openai
+OPENAI_TRANSCRIPTION_MODEL=whisper-1
 ```
 
 Run the dev server:
@@ -75,13 +88,20 @@ Deploy instantly with Vercel:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/GerritRoska/ent-scribe)
 
-Set `OPENAI_API_KEY` in your Vercel environment variables.
+Set these Vercel environment variables:
+- `TRANSCRIPTION_PROVIDER`
+- `DEEPGRAM_API_KEY`
+- `DEEPGRAM_MODEL`
+- `OPENAI_API_KEY`
+- `OPENAI_TRANSCRIPTION_MODEL` (optional)
 
 ---
 
 ## Privacy & disclaimer
 
-- Audio is sent to OpenAI's API for transcription. Review [OpenAI's data policies](https://openai.com/policies/api-data-usage-policies) before use in clinical settings.
+- Audio is sent to the configured transcription provider (Deepgram by default, OpenAI optional). Review provider data policies before clinical use.
+- OpenAI API data policy: [OpenAI API data usage policies](https://openai.com/policies/api-data-usage-policies)
+- Deepgram security/privacy docs: [Deepgram security and trust center](https://deepgram.com/trust-center)
 - This tool is intended to assist documentation — **always review notes before adding to a patient record.**
 - Not a substitute for clinical judgment.
 
