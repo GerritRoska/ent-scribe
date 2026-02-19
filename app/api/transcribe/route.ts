@@ -18,8 +18,9 @@ function getOpenAIErrorDetails(err: unknown) {
   };
 }
 
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
 export async function POST(req: NextRequest) {
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
   try {
     const formData = await req.formData();
     const audioBlob = formData.get("audio") as Blob | null;

@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { SCRIBE_SYSTEM_PROMPT, buildNotePrompt } from "@/lib/prompts";
 
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
 export async function POST(req: NextRequest) {
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
   try {
     const { transcript, template, patientName, patientDob } = await req.json();
 
