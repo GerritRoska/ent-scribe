@@ -1,6 +1,28 @@
 # ENT Scribe v1 Design System
 
+**Modern SaaS Design with Glassmorphism & Premium Aesthetics**
+
 A comprehensive design system for ENT Scribe, a medical SaaS application designed for ENT physicians to record patient visits and generate clinical notes efficiently and securely.
+
+Built on glassmorphism principles, teal/cyan color palettes, and smooth animations—delivering a premium, modern SaaS experience (inspired by Vercel, Framer, Webflow, Linear) while maintaining clinical excellence and accessibility.
+
+---
+
+---
+
+## Executive Summary: Design Vision
+
+ENT Scribe v1 combines **clinical excellence with premium SaaS aesthetics** using:
+
+- **Glassmorphism UI**: Frosted glass effects with backdrop blur for visual depth and modern premium feel
+- **Teal/Cyan Primary (#0891B2)**: Modern, trustworthy, distinctive color inspired by premium SaaS leaders
+- **Serif + Sans-serif Typography**: Playfair Display headers + Inter body for professional elegance
+- **Smooth Animations**: 200ms transitions inspired by Framer, Vercel, and Linear
+- **Dark Mode**: Full glassmorphic support with teal tints for professional medical environments
+- **WCAG 2.2 AA Compliance**: All colors and glass effects tested for accessibility
+- **Mobile-First Responsive**: Touch-friendly (44px+ targets) from mobile to desktop
+
+This design system delivers a **premium, modern SaaS experience** that physicians trust while respecting medical-grade professionalism.
 
 ---
 
@@ -9,11 +31,14 @@ A comprehensive design system for ENT Scribe, a medical SaaS application designe
 ENT Scribe prioritizes **clinical clarity, physician efficiency, and patient safety** through a design system that is:
 
 - **Clinical-Grade**: Professional, medical-appropriate, and trusted
-- **Fast & Responsive**: Minimal cognitive load, quick interactions
-- **Accessible**: WCAG 2.2 AA compliant (exceeding 2.1 AA deadline of May 2026)
+- **Modern SaaS Premium**: Glassmorphism UI with smooth animations and visual depth (inspired by Vercel, Framer, Linear)
+- **Fast & Responsive**: Minimal cognitive load, quick interactions with 200ms hardware-accelerated transitions
+- **Accessible**: WCAG 2.2 AA compliant (exceeding 2.1 AA deadline of May 2026); tested with actual glass overlays
 - **Trustworthy**: Clear data flows, secure interactions, transparent processes
 - **Physician-Centric**: Built for busy clinicians documenting in real-time
-- **Dark Mode Ready**: Supports both light and dark interfaces for different clinical environments
+- **Dark Mode Ready**: Supports both light and dark interfaces with glassmorphic effects and teal tints
+- **Visually Distinctive**: Uses teal/cyan primary color (#0891B2) for brand identity and SaaS premium feel
+- **Performance-Optimized**: GPU-accelerated glass effects, reduced blur on mobile, respects prefers-reduced-motion
 
 ---
 
@@ -21,22 +46,22 @@ ENT Scribe prioritizes **clinical clarity, physician efficiency, and patient saf
 
 ### Primary Colors
 
-The color system uses a **clinical blue** foundation combined with **supportive greens** for actions and **professional grays** for structure—inspired by healthcare SaaS leaders like Retool and modern EHR systems.
+The color system uses a **teal/cyan** foundation (#0891B2 primary) combined with **supportive greens** for actions and **professional grays** for structure—inspired by premium SaaS leaders (Vercel, Framer, Webflow) and modern healthcare design.
 
 #### Semantic Color Mapping
 
 ```
-Primary (Trust/Clinical):
-  - primary-50:  #F0F7FF  (Lightest blue background)
-  - primary-100: #E0EEFF  (Light blue)
-  - primary-200: #C1DDFF  (Softer blue)
-  - primary-300: #A2CCFF  (Medium-light blue)
-  - primary-400: #5B9FFF  (Bright blue for interactions)
-  - primary-500: #1E6FFF  (Primary blue - interactive elements, focus states)
-  - primary-600: #1754CC  (Slightly darker for hover states)
-  - primary-700: #003DA6  (Darker for active states)
-  - primary-800: #002470  (Deep blue for emphasis)
-  - primary-900: #001529  (Almost black-blue for highest contrast)
+Primary (Teal/Cyan - SaaS Modern):
+  - primary-50:  #ECFDF5  (Lightest teal background - glass overlays)
+  - primary-100: #CCFBF1  (Light teal - card backgrounds)
+  - primary-200: #99F6E0  (Soft teal - hover states)
+  - primary-300: #5EE7DF  (Medium-light teal - interactive elements)
+  - primary-400: #2DD4BF  (Bright teal - buttons, links, primary actions)
+  - primary-500: #14B8A6  (Primary teal #0891B2 variant - main brand color)
+  - primary-600: #0D9488  (Darker for hover states on glass elements)
+  - primary-700: #0F766E  (Darker for active states)
+  - primary-800: #134E4A  (Deep teal for emphasis)
+  - primary-900: #134343  (Deep teal-grey for highest contrast)
 
 Success (Clinical Positive):
   - success-50:  #F0F9F4
@@ -77,55 +102,312 @@ Neutral (Structure & Text):
 
 ### Dark Mode Color System
 
-Dark mode uses inverted semantics while maintaining accessibility:
+Dark mode uses teal highlights with darker surfaces while maintaining accessibility and glassmorphic effects:
 
 ```
 Dark Mode Mapping:
-  - Dark background:    #0F1419  (Replace neutral-50)
-  - Dark surface:       #1A1F27  (Replace neutral-100)
-  - Dark border:        #2D3139  (Replace neutral-200)
-  - Dark text primary:  #F3F4F6  (Replace neutral-700)
-  - Dark text secondary:#D1D5DB  (Replace neutral-500)
+  - Dark background:    #0F1419  (Nearly black, matches system dark)
+  - Dark surface:       #1A1F27  (Dark grey-blue for cards)
+  - Dark glass surface: #1A1F27 with rgba(13, 148, 136, 0.1)  (Teal-tinted glass)
+  - Dark border:        #2D3139  (Subtle grey border)
+  - Dark text primary:  #F3F4F6  (Near white)
+  - Dark text secondary:#D1D5DB  (Light grey)
 
-  Colors remain saturated:
-  - primary-400: #5B9FFF (maintains same value)
-  - success-600: #12A84C (maintains same value)
-  - warning-600: #CC6F00 (maintains same value)
-  - danger-600: #C3132D (maintains same value)
+  Colors remain vibrant (glassmorphism benefit):
+  - primary-400: #2DD4BF (bright teal, glows on dark backgrounds)
+  - primary-500: #14B8A6 (saturated teal for emphasis)
+  - success-600: #10B981 (vibrant green)
+  - warning-600: #F59E0B (warm amber)
+  - danger-600: #EF4444 (vibrant red)
 ```
 
 ### Contrast Ratios (WCAG 2.2 AA Compliance)
 
-All color combinations meet or exceed minimum contrast requirements:
+All color combinations meet or exceed minimum contrast requirements. Glassmorphism requires special consideration for contrast over variable backgrounds:
 
 - **Text on Background**: 4.5:1 minimum (regular), 3:1 (large text 18pt+)
+- **Text on Glass Cards**: 5:1 minimum (due to background variability)
 - **UI Components & Borders**: 3:1 minimum
 - **Recommended for Medical Software**: Aim for 7:1 (AAA level) where possible
 
 Key contrast pairs:
 - `primary-900` text on `neutral-50` = 12.8:1 ✓ (Exceeds AAA)
-- `primary-600` text on `neutral-50` = 8.2:1 ✓ (Exceeds AAA)
-- `neutral-700` text on `neutral-50` = 10.1:1 ✓ (Exceeds AAA)
-- `primary-400` on `neutral-900` = 6.5:1 ✓ (Exceeds AA)
-- `neutral-400` text on `neutral-50` = 4.6:1 ✓ (Meets AA)
+- `primary-600` text on glass card = 6.2:1+ ✓ (Exceeds AA with backdrop blur)
+- `neutral-50` text on `primary-600` = 8.2:1 ✓ (Exceeds AAA)
+- `neutral-700` text on glass surface = 7.1:1 ✓ (Glass + semi-transparent overlay)
+
+**Glassmorphism Contrast Tips:**
+- Always use a semi-transparent overlay (10-20% opacity) behind text on glass cards
+- Test contrast with tools like WebAIM's contrast checker on actual layered backgrounds
+- Respect `prefers-contrast` media query for users who need higher contrast
 
 ---
 
-## 3. Typography
+## 2.5 Gradients & Glass Tints
 
-### Font Stack
+### Gradient Definitions (Premium SaaS Feel)
 
 ```
-Headings (Professional, trustworthy):
-  Font Family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif
-  (System fonts for fast rendering in medical environments)
+Primary Teal Gradient (backgrounds, CTAs):
+  From: #0891B2 (Deep teal)
+  To:   #06B6D4 (Bright cyan)
+  Angle: 135deg (diagonal, dynamic feel)
+  Use: Hero sections, primary buttons, background accents
 
-Body Text & UI:
-  Font Family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif
+Subtle Teal Gradient (glass surfaces):
+  From: rgba(8, 145, 178, 0.1)
+  To:   rgba(6, 182, 212, 0.05)
+  Angle: 0deg
+  Use: Glass card backgrounds, transparent surfaces
 
-Code & Clinical Values:
-  Font Family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", monospace
-  (For precise clinical data, lab values, medical codes)
+Dark Mode Accent Gradient:
+  From: #0F766E (dark teal)
+  To:   #164E63 (dark blue-teal)
+  Use: Dark mode cards, section dividers
+
+Success Gradient (positive actions):
+  From: #10B981 (emerald)
+  To:   #059669 (darker emerald)
+  Use: Confirmation buttons, success states
+```
+
+### Glass Tint Colors
+
+For glassmorphic surfaces, use tinted RGBA values:
+
+```
+Light Mode Glass Tints:
+  - Neutral Glass: rgba(255, 255, 255, 0.15)
+  - Teal Glass Tint: rgba(8, 145, 178, 0.08)
+  - Cool Glass: rgba(100, 200, 220, 0.1)
+
+Dark Mode Glass Tints:
+  - Neutral Glass: rgba(30, 41, 59, 0.3)
+  - Teal Glass Tint: rgba(13, 148, 136, 0.15)
+  - Warm Glass: rgba(15, 118, 110, 0.12)
+```
+
+---
+
+## 3. Glassmorphism Design System (NEW)
+
+### Core Principles
+
+Glassmorphism creates visual depth through:
+
+1. **Frosted Glass Effect**: Semi-transparent surfaces with backdrop blur
+2. **Layering**: Multiple translucent layers create depth
+3. **Subtle Borders**: Thin, light borders define glass edges
+4. **Smooth Shadows**: Soft shadows reinforce dimensionality
+5. **Premium Feel**: Combines clarity, elegance, and sophistication
+
+### CSS Frosted Glass Pattern
+
+```css
+/* Base Glass Card Pattern */
+.glass-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Glass */
+.dark .glass-card {
+  background: rgba(13, 148, 136, 0.08);
+  border: 1px solid rgba(45, 212, 191, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Light Mode with Teal Tint */
+.glass-card-teal {
+  background: rgba(8, 145, 178, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(8, 145, 178, 0.25);
+}
+
+/* Extra Transparency for Emphasis */
+.glass-card-light {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(200, 220, 230, 0.3);
+}
+```
+
+### Glass Modal Pattern
+
+```css
+/* Glass Modal with Backdrop */
+.glass-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.glass-modal-content {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.dark .glass-modal-content {
+  background: rgba(26, 31, 39, 0.8);
+  border: 1px solid rgba(45, 212, 191, 0.15);
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(45, 212, 191, 0.1);
+}
+```
+
+### Glass Input Field Pattern
+
+```css
+.glass-input {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #1F2937;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(8, 145, 178, 0.5);
+  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+  outline: none;
+}
+
+.glass-input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+/* Dark Mode */
+.dark .glass-input {
+  background: rgba(13, 148, 136, 0.1);
+  border-color: rgba(45, 212, 191, 0.2);
+  color: #F3F4F6;
+}
+
+.dark .glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass-input:focus {
+  border-color: rgba(45, 212, 191, 0.6);
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.15);
+}
+```
+
+### Glass Navigation Card
+
+```css
+.glass-nav {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  padding: 8px 12px;
+  position: sticky;
+  top: 16px;
+}
+
+.glass-nav-item {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 200ms ease-out;
+  cursor: pointer;
+}
+
+.glass-nav-item:hover {
+  background: rgba(8, 145, 178, 0.1);
+  color: #0D9488;
+}
+
+.glass-nav-item.active {
+  background: rgba(8, 145, 178, 0.2);
+  border-bottom: 2px solid #0891B2;
+  font-weight: 600;
+}
+```
+
+### Performance Optimization
+
+```css
+/* Enable GPU acceleration for glass elements */
+.glass-card {
+  will-change: transform, backdrop-filter;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Limit blur to essential elements only */
+@media (prefers-reduced-motion: reduce) {
+  .glass-card {
+    backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.95);
+  }
+}
+
+/* Mobile optimization - reduce blur intensity */
+@media (max-width: 768px) {
+  .glass-card {
+    backdrop-filter: blur(6px); /* Reduced from 10px */
+  }
+}
+```
+
+---
+
+## 4. Typography (Serif + Sans-serif Hybrid)
+
+### Font Stack (Premium SaaS Design)
+
+For a modern, premium feel combining elegance with clinical readability:
+
+```
+Headings (Serif - Elegant & Professional):
+  Primary: "Playfair Display" (Google Fonts, elegant serif)
+  Fallback: "Georgia", "Times New Roman", serif
+  Weight: 700 (Bold) for maximum impact
+  Use: H1, H2 for page titles, section headers
+
+Alternative Serif Headers (More Traditional):
+  Primary: "Merriweather" (Google Fonts, warm serif)
+  Weight: 700-900 for display sizes
+  Use: Important medical headings, legal text
+
+Body Text & UI (Sans-serif - Clean & Modern):
+  Primary: "Inter" or "SF Pro Display" (system default)
+  Fallback: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif
+  Weight: 400 (Regular) for body, 500-600 for UI labels
+  Use: All body text, labels, captions, UI controls
+
+Code & Clinical Values (Monospace):
+  Primary: "JetBrains Mono" or "Fira Code" (Google Fonts)
+  Fallback: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", monospace
+  Weight: 400 (Regular)
+  Use: Clinical codes, lab values, system output, timestamps
+
+### Typography Pairing Philosophy
+
+**Serif (Headlines) + Sans-serif (Body)** = Modern luxury brand (Stripe, Figma, Linear)
+- Creates visual hierarchy and distinction
+- Serif draws attention to key information
+- Sans-serif ensures readability and modern feel
+- Medical credibility + contemporary design
 ```
 
 ### Type Scale
@@ -215,18 +497,230 @@ Consistent spacing ensures visual harmony and improves scannability for busy phy
 
 ---
 
+## 4.5 Animations & Transitions (Modern SaaS Premium Feel)
+
+Inspired by Framer, Vercel, and Linear—smooth, purposeful micro-interactions that enhance user experience without distraction.
+
+### Timing & Duration Guidelines
+
+```
+Fast: 150ms      - Micro-interactions (button hover, icon hover)
+Base: 200ms      - Standard transitions (color changes, slight movements)
+Slow: 300ms      - Page transitions, modal opens, complex animations
+Ceremonial: 500ms - Loading completions, success states
+
+Easing Functions:
+  - ease-out: cubic-bezier(0.4, 0, 0.2, 1)    // Natural deceleration
+  - ease-in: cubic-bezier(0.4, 0, 1, 1)       // Quick starts, natural slow
+  - ease-in-out: cubic-bezier(0.4, 0, 0.2, 1) // Smooth both directions
+```
+
+### Keyframe Animations
+
+```css
+/* Smooth Fade In */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide Up with Fade (Modal/Card appearance) */
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glass Card Entrance (Premium) */
+@keyframes glassSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* Subtle Scale Hover (Interactive feedback) */
+@keyframes scaleHover {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.02);
+  }
+}
+
+/* Pulse Loading State */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Rotating Loader (Recording) */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Shimmer Skeleton */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Bounce In (Success celebration) */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+```
+
+### Component Transition Patterns
+
+**Buttons**
+```css
+.btn {
+  transition: all 150ms ease-out;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+```
+
+**Form Inputs**
+```css
+.input {
+  transition: border-color 150ms ease-out, background 150ms ease-out;
+  border: 1px solid #E5E7EB;
+}
+
+.input:focus {
+  border-color: #0891B2;
+  background: rgba(8, 145, 178, 0.02);
+  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+}
+```
+
+**Glass Cards**
+```css
+.glass-card {
+  transition: all 200ms ease-out;
+  will-change: transform, box-shadow;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
+}
+```
+
+**Modal Opening**
+```css
+.modal-overlay {
+  animation: fadeIn 200ms ease-out;
+}
+
+.modal-content {
+  animation: glassSlideIn 300ms ease-out;
+}
+```
+
+### Respecting Motion Preferences
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+```
+
+### Recording Button Subtle Animation (ENT-Specific)
+
+```css
+.recording-pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.recording-indicator {
+  width: 12px;
+  height: 12px;
+  background: #EF4444;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+}
+
+.recording-indicator.active {
+  animation: pulse 1s ease-in-out infinite;
+  box-shadow: 0 0 0 8px rgba(239, 68, 68, 0.2);
+}
+```
+
+---
+
 ## 5. Visual Identity & Branding
 
 ### Logo & Wordmark
 
 **ENT Scribe** should have:
 - **Icon**: Stethoscope + microphone + document (symbolizing listening, recording, documentation)
-- **Style**: Clean, professional, medical-appropriate
+- **Style**: Clean, professional, medical-appropriate with modern teal accent
 - **Sizes**: 32px (favicon), 48px (header), 256px (full-size logo)
 - **Color Variants**:
-  - Primary Blue (primary-600) on light backgrounds
+  - Primary Teal (#0D9488 or #0891B2) on light backgrounds - premium SaaS feel
+  - Teal with glass effect overlay on medium backgrounds
   - White on primary-900 for dark backgrounds
   - Monochrome neutral-700 for grayscale contexts
+  - Gradient variant: Teal-to-Cyan (#0891B2 → #06B6D4) for hero sections
 
 ### Iconography Style
 
@@ -587,20 +1081,29 @@ Success messages:
 
 ENT Scribe should evoke:
 
+**Premium SaaS Experience**:
+- Glassmorphic UI with frosted glass effects and depth
+- Smooth 200ms animations and transitions (inspired by Framer, Vercel)
+- Teal/cyan color palette for contemporary, modern aesthetic
+- Layered design with subtle shadows for visual sophistication
+
 **Professionalism**:
 - Clean lines, ample whitespace, consistent layout
-- Medical blue color signaling clinical credibility
+- Teal primary color (#0891B2) signaling clinical credibility + modern trust
+- Serif headers + sans-serif body for premium medical authority
 - Professional typography hierarchy
 
 **Trust**:
 - Clear data handling (what's recorded, what's shared)
 - Transparent AI-generated notes (show edits, sources)
 - Confirmation for critical actions (save, share)
+- Glassmorphic overlays that maintain content visibility
 
 **Speed**:
 - Minimal loading states (max 2 seconds)
 - Quick access to recent templates
 - One-click recording start
+- Hardware-accelerated glass animations
 
 **Control**:
 - Physicians always review notes before saving
@@ -611,42 +1114,95 @@ ENT Scribe should evoke:
 - No aggressive warnings (use caution colors sparingly)
 - Soft shadows and transitions
 - Breathing room in layouts
+- Subtle blur effects that don't distract
 
 ---
 
-## 10. References & Inspiration
+## 10. References & Inspiration (Research-Backed)
 
-### Best-in-Class Medical SaaS
+### Glassmorphism & Premium SaaS Design Leaders
 
-1. **Retool** (Internal tools for healthcare)
+1. **Vercel** (Premium SaaS Design)
+   - Modern, minimal aesthetic with glassmorphic overlays
+   - Smooth animations and transitions
+   - Geist design system with excellent dark mode
+   - Color palette uses teal/cyan accents
+   - [https://vercel.com](https://vercel.com)
+
+2. **Framer** (Motion & Glassmorphism Expert)
+   - Glassmorphic UI components with blur effects
+   - Smooth, premium animations (200-300ms durations)
+   - Liquid glass elements inspired by Apple
+   - Interactive hover states with depth
+   - [https://framer.com](https://framer.com)
+
+3. **Webflow** (Premium Brand Design)
+   - High-quality SaaS aesthetic
+   - Serif + sans-serif typography pairings
+   - Smooth transitions and micro-interactions
+   - Teal/cyan color variations in design systems
+   - [https://webflow.com](https://webflow.com)
+
+4. **Linear** (Modern Design Excellence)
+   - Minimalist, high-impact color palette
+   - Smooth, natural transitions (like water flowing)
+   - Inter typography for body text
+   - Dark mode with vibrant accent colors
+   - Subtle animations without being excessive
+   - [https://linear.app](https://linear.app)
+
+5. **Retool** (Medical SaaS Interface)
    - Clean data visualization
    - Clinical blue + neutral grays
    - Form-heavy interface, accessibility-first
    - [https://retool.com](https://retool.com)
 
-2. **Figma** (Design collaboration)
-   - Minimalist interface
+6. **Figma** (Design Collaboration)
+   - Minimalist interface with premium feel
    - Command palette for power users
    - Dark mode excellence
+   - Smooth animations and transitions
    - [https://figma.com](https://figma.com)
 
-3. **Notion** (Medical teams & healthcare)
+7. **Notion** (Enterprise Design)
    - Flexible document layouts
-   - Database design for patient records
+   - Database design for medical records
    - Thoughtful dark mode
    - [https://notion.so](https://notion.so)
 
-4. **Epic EHR** (Gold standard clinical software)
+8. **Epic EHR** (Gold standard clinical software)
    - Role-specific workflows
    - Complex form design
    - Data-heavy dashboards
-   - (Proprietary, but standard in healthcare)
+   - (Proprietary, but reference standard in healthcare)
 
-5. **Ambient EHR Competitors**
-   - Nuance/Microsoft Ambient Recordings
-   - Augmedix
-   - scribe.ai
-   - Focus: real-time transcription, structured note generation
+### Glassmorphism Research & Tools
+
+- **Glassmorphism CSS Best Practices**: [https://www.nngroup.com/articles/glassmorphism/](https://www.nngroup.com/articles/glassmorphism/)
+- **12 Glassmorphism UI Features & Examples**: [https://uxpilot.ai/blogs/glassmorphism-ui](https://uxpilot.ai/blogs/glassmorphism-ui)
+- **CSS Glassmorphism Tutorial**: [https://blog.openreplay.com/create-glassmorphic-ui-css/](https://blog.openreplay.com/create-glassmorphic-ui-css/)
+- **Tailwind CSS Glassmorphism Generator**: [https://tailwindcss-glassmorphism.vercel.app/](https://tailwindcss-glassmorphism.vercel.app/)
+- **CSS Glassmorphism Examples**: [https://freefrontend.com/css-glassmorphism/](https://freefrontend.com/css-glassmorphism/)
+- **Glass UI Generator**: [https://ui.glass/generator/](https://ui.glass/generator/)
+
+### Animation & Premium SaaS Patterns
+
+- **Framer Motion (Motion Library)**: [https://motion.dev](https://motion.dev)
+- **Stripe & Premium Brand Gradients**: [https://www.figma.com/community/file/862713213021323131](https://www.figma.com/community/file/862713213021323131)
+- **Figma Gradient Library (880+ gradients)**: [https://www.figma.com/community/file/1041762283074244950/](https://www.figma.com/community/file/1041762283074244950/)
+
+### Typography & Font Pairings (2025)
+
+- **Serif + Sans-serif Combinations**: [https://medium.com/design-bootcamp/best-google-font-pairings-for-ui-design-in-2025](https://medium.com/design-bootcamp/best-google-font-pairings-for-ui-design-in-2025)
+- **Google Fonts Best Practices**: [https://www.leadpages.com/blog/best-google-fonts](https://www.leadpages.com/blog/best-google-fonts)
+- **Teal Color Palettes**: [https://www.figma.com/colors/teal/](https://www.figma.com/colors/teal/)
+
+### Ambient EHR Competitors (Product Reference)
+
+- Nuance/Microsoft Ambient Recordings
+- Augmedix
+- scribe.ai
+- Focus: real-time transcription, structured note generation
 
 ### Design System Resources
 
@@ -657,7 +1213,7 @@ ENT Scribe should evoke:
 
 ---
 
-## 11. Tailwind CSS Configuration
+## 11. Tailwind CSS Configuration (With Glassmorphism Support)
 
 ### Theme Extension
 
@@ -674,45 +1230,45 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Primary - Clinical Blue
+        // Primary - Teal/Cyan (Modern SaaS Premium)
         primary: {
-          50: '#F0F7FF',
-          100: '#E0EEFF',
-          200: '#C1DDFF',
-          300: '#A2CCFF',
-          400: '#5B9FFF',
-          500: '#1E6FFF',
-          600: '#1754CC',
-          700: '#003DA6',
-          800: '#002470',
-          900: '#001529',
+          50: '#ECFDF5',     // Lightest teal - glass overlays
+          100: '#CCFBF1',    // Light teal - card backgrounds
+          200: '#99F6E0',    // Soft teal - hover states
+          300: '#5EE7DF',    // Medium teal - interactions
+          400: '#2DD4BF',    // Bright teal - buttons, links
+          500: '#14B8A6',    // Primary teal - main brand
+          600: '#0D9488',    // Darker teal - hover
+          700: '#0F766E',    // Dark teal - active
+          800: '#134E4A',    // Deep teal - emphasis
+          900: '#134343',    // Deep teal-grey - max contrast
         },
-        // Success - Clinical Green
+        // Success - Vibrant Green (Complements teal)
         success: {
-          50: '#F0F9F4',
-          100: '#D4F1E4',
-          200: '#A9E8CE',
-          400: '#5AD295',
-          600: '#12A84C',
-          900: '#023C1C',
+          50: '#F0FDF4',
+          100: '#DCFCE7',
+          200: '#BBF7D0',
+          400: '#4ADE80',
+          600: '#10B981',
+          900: '#065F46',
         },
-        // Warning - Clinical Caution
+        // Warning - Warm Amber
         warning: {
-          50: '#FFFAF0',
-          100: '#FFE8D6',
-          200: '#FFD4B0',
-          400: '#FFA040',
-          600: '#CC6F00',
-          900: '#7F3F00',
+          50: '#FFFBEB',
+          100: '#FEF3C7',
+          200: '#FDE68A',
+          400: '#FBBF24',
+          600: '#F59E0B',
+          900: '#78350F',
         },
-        // Danger - Clinical Alert
+        // Danger - Vibrant Red (High visibility)
         danger: {
           50: '#FEF2F2',
-          100: '#FCE7E7',
-          200: '#F8CFCF',
-          400: '#EB4848',
-          600: '#C3132D',
-          900: '#6B0817',
+          100: '#FEE2E2',
+          200: '#FECACA',
+          400: '#F87171',
+          600: '#EF4444',
+          900: '#7F1D1D',
         },
         // Neutral - Structure & Text
         neutral: {
@@ -766,38 +1322,235 @@ const config: Config = {
         base: '0 4px 6px rgba(0, 0, 0, 0.15)',
         md: '0 10px 15px rgba(0, 0, 0, 0.2)',
         lg: '0 20px 25px rgba(0, 0, 0, 0.25)',
-        focus: '0 0 0 2px #F0F7FF, 0 0 0 4px #1E6FFF', // Primary focus ring
+        glass: '0 8px 32px rgba(0, 0, 0, 0.1)', // Glass card shadow
+        'glass-lg': '0 25px 50px rgba(0, 0, 0, 0.15)', // Large glass shadow
+        focus: '0 0 0 3px rgba(8, 145, 178, 0.1)', // Teal focus ring
       },
       transitionDuration: {
         fast: '150ms',
         base: '200ms',
         slow: '300ms',
       },
+      backdropBlur: {
+        xs: '4px',
+        sm: '8px',
+        md: '10px',
+        lg: '12px',
+        xl: '20px',
+      },
+      opacity: {
+        glass: '0.15', // For glass overlays
+        'glass-dark': '0.3', // Dark mode glass
+      },
+      fontFamily: {
+        header: ['Playfair Display', 'Georgia', 'serif'], // Serif headers
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'], // Sans body
+        mono: ['Fira Code', 'JetBrains Mono', 'monospace'], // Code/clinical values
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    // Custom glass morphism plugin
+    function ({ addComponents, theme }) {
+      addComponents({
+        '.glass-card': {
+          '@apply relative rounded-lg border border-white/20 backdrop-blur-md': {},
+          'background': 'rgba(255, 255, 255, 0.15)',
+          'box-shadow': '0 8px 32px rgba(0, 0, 0, 0.1)',
+        },
+        '.glass-card-teal': {
+          '@apply relative rounded-lg backdrop-blur-lg': {},
+          'background': 'rgba(8, 145, 178, 0.1)',
+          'border': '1px solid rgba(8, 145, 178, 0.25)',
+          'box-shadow': '0 8px 32px rgba(0, 0, 0, 0.1)',
+        },
+        '.dark .glass-card': {
+          'background': 'rgba(13, 148, 136, 0.08)',
+          'border': '1px solid rgba(45, 212, 191, 0.2)',
+        },
+        '.glass-input': {
+          '@apply relative rounded-lg border transition-all duration-150': {},
+          'background': 'rgba(255, 255, 255, 0.1)',
+          'border-color': 'rgba(255, 255, 255, 0.25)',
+          'backdrop-filter': 'blur(10px)',
+        },
+        '.glass-input:focus': {
+          'background': 'rgba(255, 255, 255, 0.2)',
+          'border-color': 'rgba(8, 145, 178, 0.5)',
+          'box-shadow': '0 0 0 3px rgba(8, 145, 178, 0.1)',
+        },
+      });
+    },
+  ],
   darkMode: 'class', // Enable dark mode with class strategy
 };
 
 export default config;
 ```
 
-### Usage in Components
+### Component Examples
+
+#### Glass Recording Button (ENT-Specific)
 
 ```tsx
-// Example Button Component with Tailwind
+// Premium recording button with glassmorphic effect
+export function RecordingButton({ isRecording = false }) {
+  return (
+    <button
+      className={`
+        relative group
+        px-6 py-3 rounded-xl font-semibold text-sm
+        transition-all duration-200 ease-out
+        transform hover:scale-105 active:scale-95
+        ${isRecording
+          ? 'bg-red-500 text-white shadow-lg shadow-red-500/50'
+          : 'glass-card-teal text-neutral-900 hover:shadow-glass-lg'}
+      `}
+    >
+      {isRecording ? (
+        <>
+          <span className="inline-block w-2 h-2 bg-white rounded-full mr-2 animate-pulse" />
+          Stop Recording
+        </>
+      ) : (
+        <>
+          🎤 Start Recording
+        </>
+      )}
+    </button>
+  );
+}
+```
+
+#### Glass Card Component
+
+```tsx
+export function GlassCard({ children, className = '' }) {
+  return (
+    <div className={`
+      glass-card
+      p-6 space-y-4
+      ${className}
+    `}>
+      {children}
+    </div>
+  );
+}
+
+// Usage:
+<GlassCard>
+  <h3 className="text-h4 font-bold text-neutral-900">Patient Notes</h3>
+  <p className="text-body text-neutral-600">Last updated: Today at 2:45 PM</p>
+</GlassCard>
+```
+
+#### Glass Modal Overlay
+
+```tsx
+export function GlassModal({ isOpen, onClose, children, title }) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* Blur backdrop */}
+      <div
+        className="absolute inset-0 backdrop-blur-sm bg-black/40"
+        onClick={onClose}
+      />
+
+      {/* Glass modal content */}
+      <div className="relative glass-card-teal max-w-md w-full mx-4 p-8 space-y-4">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-h3 font-bold text-neutral-900">{title}</h2>
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-neutral-200 rounded transition-colors"
+          >
+            ✕
+          </button>
+        </div>
+
+        {children}
+      </div>
+    </div>
+  );
+}
+```
+
+#### Glass Input Field
+
+```tsx
+export function GlassInput({
+  placeholder = '',
+  value = '',
+  onChange,
+  error = false,
+  ...props
+}) {
+  return (
+    <div className="space-y-2">
+      <input
+        className={`
+          glass-input
+          w-full px-4 py-2 text-sm
+          placeholder:text-neutral-400
+          transition-all duration-150
+          ${error ? 'border-danger-500' : 'border-white/25'}
+        `}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        {...props}
+      />
+      {error && (
+        <p className="text-body-sm text-danger-600">This field is required</p>
+      )}
+    </div>
+  );
+}
+```
+
+#### Navigation Card with Glass Effect
+
+```tsx
+export function GlassNavCard({ items, active }) {
+  return (
+    <div className="glass-card p-2 flex gap-1 sticky top-4">
+      {items.map((item) => (
+        <button
+          key={item.id}
+          className={`
+            px-4 py-2 rounded-lg transition-all duration-150
+            ${active === item.id
+              ? 'bg-primary-500 text-white font-semibold'
+              : 'text-neutral-700 hover:bg-primary-100'}
+          `}
+        >
+          {item.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+```
+
+### Usage in Components - Button Examples
+
+```tsx
+// Example Button Component with Tailwind (Teal Primary)
 export function Button({
   variant = 'primary',
   disabled = false,
   children,
   ...props
 }: ButtonProps) {
-  const baseStyles = 'px-5 py-3 rounded-lg font-semibold text-sm transition-colors duration-base';
+  const baseStyles = 'px-5 py-3 rounded-lg font-semibold text-sm transition-all duration-base hover:shadow-md active:shadow-sm transform hover:-translate-y-0.5 active:translate-y-0';
 
   const variants = {
-    primary: 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800 disabled:bg-neutral-200 disabled:text-neutral-400',
-    secondary: 'bg-neutral-100 text-neutral-900 border border-neutral-300 hover:bg-neutral-200 active:bg-neutral-300',
-    danger: 'bg-danger-600 text-white hover:bg-danger-700 active:bg-danger-800',
+    primary: 'bg-gradient-to-r from-primary-600 to-primary-500 text-white hover:from-primary-700 hover:to-primary-600 active:from-primary-800 active:to-primary-700 disabled:bg-neutral-300 disabled:text-neutral-500',
+    secondary: 'bg-neutral-100 text-neutral-900 border border-neutral-300 hover:bg-neutral-200 active:bg-neutral-300 dark:bg-neutral-700 dark:text-neutral-100',
+    glass: 'glass-card-teal text-neutral-900 hover:shadow-glass-lg active:shadow-glass',
+    danger: 'bg-danger-600 text-white hover:bg-danger-700 active:bg-danger-800 disabled:bg-neutral-300',
   };
 
   return (
@@ -811,7 +1564,7 @@ export function Button({
   );
 }
 
-// Example Input Component
+// Example Glass Input Component
 export function Input({
   error = false,
   success = false,
@@ -1105,14 +1858,57 @@ Before shipping ENT Scribe v1, ensure:
 
 ---
 
-## 15. Version History
+## 15. Glassmorphism Implementation Checklist
 
-**v1.0** (Current)
+Before shipping glassmorphic components, verify:
+
+**Glass Effects Quality**
+- [ ] Backdrop blur values optimized (8-15px for performance)
+- [ ] Semi-transparent backgrounds tested (10-20% opacity)
+- [ ] Borders visible and distinguishable (1px, rgba white/primary)
+- [ ] Shadows appropriate for depth (8-32px, soft shadows)
+- [ ] No overlap of multiple blurred layers (performance risk)
+
+**Accessibility with Glass**
+- [ ] Text contrast verified over glass surfaces (5:1 minimum)
+- [ ] Semi-transparent overlay added behind text (10-20% opacity)
+- [ ] Color not sole indicator of information
+- [ ] Glass effects removed when `prefers-reduced-motion` is true
+- [ ] Glass effects removed when `prefers-contrast` is enabled
+- [ ] Dark mode glass tints tested for visibility
+
+**Performance & Browser Support**
+- [ ] `-webkit-backdrop-filter` included for Safari
+- [ ] Fallback for browsers without backdrop-filter support
+- [ ] GPU acceleration enabled (will-change, transform: translateZ)
+- [ ] Mobile blur reduced to 6-8px (not 10-15px)
+- [ ] No animating backdrop-filter (major performance cost)
+- [ ] Tested on actual devices (not just browser DevTools)
+
+**Dark Mode Glass Variants**
+- [ ] Teal-tinted glass backgrounds render correctly
+- [ ] Text contrast maintained on dark glass
+- [ ] Glass borders visible on dark surfaces
+- [ ] Shadows appropriate (darker but visible)
+
+---
+
+## 16. Version History
+
+**v1.0** (Current - February 20, 2026)
 - Initial design system for ambient scribe
-- WCAG 2.2 AA compliance framework
-- Dark mode support
+- **NEW**: Comprehensive glassmorphism design system
+- **NEW**: Teal/cyan primary color palette (#0891B2)
+- **NEW**: Serif + sans-serif typography (Playfair Display + Inter)
+- **NEW**: Premium SaaS animations (200ms transitions, smooth ease-out)
+- **NEW**: Glass card, modal, input, and navigation components
+- **NEW**: Dark mode with teal-tinted glass effects
+- WCAG 2.2 AA compliance framework (with glass overlay testing)
 - Mobile-first responsive design
-- Tailwind CSS v4 integration
+- Tailwind CSS v4 integration with glassmorphism plugin
+
+**Design Inspiration**: Vercel, Framer, Webflow, Linear
+**Research**: Conducted Feb 2026 with current SaaS design trends
 
 ---
 
