@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getTemplates, Template } from "@/lib/templates";
 
@@ -9,16 +9,10 @@ function HomeContent() {
   const searchParams = useSearchParams();
   const showNew = searchParams.get("new") === "1";
 
-  const [templates, setTemplates] = useState<Template[]>([]);
-  const [selectedId, setSelectedId] = useState<string>("");
+  const [templates] = useState<Template[]>(() => getTemplates());
+  const [selectedId, setSelectedId] = useState<string>(() => getTemplates()[0]?.id ?? "");
   const [patientName, setPatientName] = useState("");
   const [patientDob, setPatientDob] = useState("");
-
-  useEffect(() => {
-    const t = getTemplates();
-    setTemplates(t);
-    if (t.length > 0) setSelectedId(t[0].id);
-  }, []);
 
   const handleStart = () => {
     if (!selectedId) return;

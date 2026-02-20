@@ -1,0 +1,7 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
+
+[mcp_servers.supabase]
+url = "https://mcp.supabase.com/mcp?read_only=true&features=database,docs"

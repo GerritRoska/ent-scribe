@@ -1,37 +1,51 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import CopyButton from "@/components/CopyButton";
 import { saveVisit } from "@/lib/visits";
 
+interface SessionVisitDraft {
+  note: string;
+  transcript: string;
+  patientName?: string;
+  patientDob?: string;
+  templateName: string;
+}
+
+function readSessionVisitDraft(): SessionVisitDraft {
+  if (typeof window === "undefined") {
+    return { note: "", transcript: "", templateName: "ENT Visit" };
+  }
+
+  return {
+    note: sessionStorage.getItem("ent-scribe-note") ?? "",
+    transcript: sessionStorage.getItem("ent-scribe-transcript") ?? "",
+    patientName: sessionStorage.getItem("ent-scribe-patient-name") ?? undefined,
+    patientDob: sessionStorage.getItem("ent-scribe-patient-dob") ?? undefined,
+    templateName: sessionStorage.getItem("ent-scribe-template-name") ?? "ENT Visit",
+  };
+}
+
 export default function NotePage() {
   const router = useRouter();
-  const [note, setNote] = useState("");
-  const [transcript, setTranscript] = useState("");
+  const sessionDraft = useMemo(() => readSessionVisitDraft(), []);
+  const [note, setNote] = useState(sessionDraft.note);
+  const [transcript] = useState(sessionDraft.transcript);
   const savedRef = useRef(false);
 
   useEffect(() => {
-    const savedNote = sessionStorage.getItem("ent-scribe-note") ?? "";
-    const savedTranscript = sessionStorage.getItem("ent-scribe-transcript") ?? "";
-    const patientName = sessionStorage.getItem("ent-scribe-patient-name") ?? undefined;
-    const patientDob = sessionStorage.getItem("ent-scribe-patient-dob") ?? undefined;
-    const templateName = sessionStorage.getItem("ent-scribe-template-name") ?? "ENT Visit";
-
-    setNote(savedNote);
-    setTranscript(savedTranscript);
-
-    if (savedNote && !savedRef.current) {
+    if (sessionDraft.note && !savedRef.current) {
       savedRef.current = true;
       saveVisit({
-        templateName,
-        patientName: patientName || undefined,
-        patientDob: patientDob || undefined,
-        note: savedNote,
-        transcript: savedTranscript,
+        templateName: sessionDraft.templateName,
+        patientName: sessionDraft.patientName || undefined,
+        patientDob: sessionDraft.patientDob || undefined,
+        note: sessionDraft.note,
+        transcript: sessionDraft.transcript,
       });
     }
-  }, []);
+  }, [sessionDraft]);
 
   const handleNewVisit = () => {
     ["ent-scribe-note", "ent-scribe-transcript", "ent-scribe-patient-name",

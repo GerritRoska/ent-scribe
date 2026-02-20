@@ -25,8 +25,7 @@ function RecordPageContent() {
   const [duration, setDuration] = useState(0);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const transcriptPartsRef = useRef<string[]>([]);
-  const transcriptionQueueRef = useRef<Promise<void>>(Promise.resolve());
+  const recordedChunksRef = useRef<Blob[]>([]);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const hasStartedRef = useRef(false);
@@ -39,8 +38,8 @@ function RecordPageContent() {
     setTemplate(found ?? null);
   }, [templateId]);
 
-  const sendChunk = useCallback(async (blob: Blob) => {
-    if (blob.size === 0) return;
+  const transcribeChunk = useCallback(async (blob: Blob): Promise<string> => {
+    if (blob.size === 0) return "";
 
     for (let attempt = 1; attempt <= TRANSCRIBE_MAX_RETRIES; attempt += 1) {
       try {
@@ -51,37 +50,24 @@ function RecordPageContent() {
           const errorBody = await res.text();
           if (attempt === TRANSCRIBE_MAX_RETRIES) {
             console.error("Chunk transcription failed:", res.status, errorBody);
-            return;
+            return "";
           }
           await wait(TRANSCRIBE_RETRY_DELAY_MS * attempt);
           continue;
         }
 
         const data = await res.json();
-        if (data.text) {
-          transcriptPartsRef.current.push(data.text);
-          setTranscriptChunks((prev) => [...prev, data.text]);
-        }
-        return;
+        return typeof data.text === "string" ? data.text : "";
       } catch (err) {
         if (attempt === TRANSCRIBE_MAX_RETRIES) {
           console.error("Chunk transcription error:", err);
-          return;
+          return "";
         }
         await wait(TRANSCRIBE_RETRY_DELAY_MS * attempt);
       }
     }
+    return "";
   }, [wait]);
-
-  const enqueueChunk = useCallback(
-    (blob: Blob) => {
-      // Serialize chunk uploads to avoid overlapping transcribe requests.
-      transcriptionQueueRef.current = transcriptionQueueRef.current
-        .catch(() => undefined)
-        .then(() => sendChunk(blob));
-    },
-    [sendChunk]
-  );
 
   const startRecording = useCallback(async () => {
     try {
@@ -94,14 +80,11 @@ function RecordPageContent() {
 
       const recorder = new MediaRecorder(stream, { mimeType });
       mediaRecorderRef.current = recorder;
-      transcriptPartsRef.current = [];
-      transcriptionQueueRef.current = Promise.resolve();
+      recordedChunksRef.current = [];
+      setTranscriptChunks([]);
 
       recorder.ondataavailable = (e) => {
-        if (e.data.size > 0) {
-          const blob = new Blob([e.data], { type: mimeType });
-          enqueueChunk(blob);
-        }
+        if (e.data.size > 0) recordedChunksRef.current.push(e.data);
       };
 
       recorder.start(30000); // fire ondataavailable every 30s
@@ -114,7 +97,7 @@ function RecordPageContent() {
       console.error("Mic error:", err);
       alert("Could not access microphone. Please allow microphone access and try again.");
     }
-  }, [enqueueChunk]);
+  }, []);
 
   const pauseRecording = useCallback(() => {
     const recorder = mediaRecorderRef.current;
@@ -144,15 +127,19 @@ function RecordPageContent() {
       if (recorder.state === "paused") recorder.resume();
 
       recorder.onstop = async () => {
-        // Wait for all queued chunk transcriptions, including the final stop chunk.
-        await transcriptionQueueRef.current;
-
         streamRef.current?.getTracks().forEach((t) => t.stop());
         setIsRecording(false);
         setIsPaused(false);
+        const collectedTranscriptChunks: string[] = [];
+        for (const chunk of recordedChunksRef.current) {
+          const text = await transcribeChunk(chunk);
+          if (text.trim()) collectedTranscriptChunks.push(text);
+        }
+
+        setTranscriptChunks(collectedTranscriptChunks);
         setIsProcessing(false);
 
-        const fullTranscript = transcriptPartsRef.current.join(" ");
+        const fullTranscript = collectedTranscriptChunks.join(" ");
         if (!fullTranscript.trim()) {
           router.push("/");
           return;
@@ -189,7 +176,7 @@ function RecordPageContent() {
 
       recorder.stop();
     },
-    [patientName, patientDob, router]
+    [patientName, patientDob, router, transcribeChunk]
   );
 
   const cancelRecording = useCallback(() => {
@@ -261,13 +248,13 @@ function RecordPageContent() {
           )}
         </div>
 
-        {/* Live transcript */}
+        {/* Transcript (shown after stop, once processing completes) */}
         {transcriptChunks.length > 0 && (
           <div className="w-full max-w-xl bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
-                Live Transcript
+                Transcript
               </h3>
             </div>
             <TranscriptView chunks={transcriptChunks} />

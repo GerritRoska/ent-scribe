@@ -1,18 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { getVisits, Visit } from "@/lib/visits";
 
 export default function Sidebar() {
   const router = useRouter();
   const pathname = usePathname();
-  const [visits, setVisits] = useState<Visit[]>([]);
-  const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    setVisits(getVisits());
+  const visits = useMemo<Visit[]>(() => {
+    void pathname;
+    return getVisits();
   }, [pathname]);
+  const [search, setSearch] = useState("");
 
   const filtered = visits.filter((v) => {
     const q = search.toLowerCase();

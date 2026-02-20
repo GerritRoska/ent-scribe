@@ -1,18 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getVisits, deleteVisit, clearVisits, Visit } from "@/lib/visits";
 import CopyButton from "@/components/CopyButton";
 
 export default function HistoryPage() {
   const router = useRouter();
-  const [visits, setVisits] = useState<Visit[]>([]);
+  const [visits, setVisits] = useState<Visit[]>(() => getVisits());
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
 
   const reload = () => setVisits(getVisits());
-  useEffect(() => { reload(); }, []);
 
   const filtered = visits.filter((v) => {
     const q = search.toLowerCase();

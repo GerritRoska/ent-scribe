@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { getTemplates, deleteTemplate, updateTemplate, saveTemplate, Template } from "@/lib/templates";
 
 export default function TemplatesPage() {
-  const [templates, setTemplates] = useState<Template[]>([]);
+  const [templates, setTemplates] = useState<Template[]>(() => getTemplates());
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editName, setEditName] = useState("");
@@ -14,7 +14,6 @@ export default function TemplatesPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const reload = () => setTemplates(getTemplates());
-  useEffect(() => { reload(); }, []);
 
   const handleDelete = (id: string) => {
     deleteTemplate(id);
