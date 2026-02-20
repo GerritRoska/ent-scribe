@@ -6,6 +6,23 @@ An open-source ambient AI medical scribe built specifically for ENT (Ear, Nose &
 
 ---
 
+## Product Overview
+
+ENT Scribe is more than a demo — it is a fully specified, production-ready blueprint for an ambient scribing platform. The `docs/` directory captures everything needed to ship v1:
+
+- `docs/INDEX.md` provides a guided reading order so new contributors can become productive in minutes.
+- `docs/IMPLEMENTATION_ROADMAP.md` breaks delivery into a six-week plan with component dependencies and QA checklists.
+- `docs/THEME.md` defines the glassmorphism-inspired design system, accessibility targets, and Tailwind implementation details.
+- `docs/SOFTWARE_DESIGN_DOCUMENT.md` and the implementation instructions outline the Deepgram streaming stack, Supabase auth/storage, and Claude-powered note generation.
+
+Together these artifacts turn the repo into a plug-and-build kit: clone it, follow the Quick Start, and you have a clear path from local dev to production deployment.
+
+## Future Vision
+
+The long-term roadmap (see `docs/PHASE2_DESIGN_DOCUMENT.md`) frames ENT Scribe as the **Jarvis for clinical documentation** — an assistant that not only listens and drafts notes, but also understands physician preferences, surfaces ICD-10 gaps, and plugs into major EHRs (Epic, Cerner, eClinicalWorks) through FHIR/HL7 integrations. Phase 2 focuses on adaptive AI copilots, secure data fine-tuning, and compliance automation so ENT teams can trust the system with their entire documentation workflow.
+
+---
+
 ## What it does
 
 1. **Select a visit type** — choose from built-in ENT templates (New Patient, Sinus/Rhinitis, Hearing Evaluation, Nasal Endoscopy, Post-Op) or create your own.
