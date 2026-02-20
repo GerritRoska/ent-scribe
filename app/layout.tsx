@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
 
 export const metadata: Metadata = {
-  title: "ENT Scribe",
-  description: "Ambient AI medical scribe for ENT — powered by Whisper + GPT-4o",
+  title: "ENT Scribe - AI Medical Scribe for ENT Physicians",
+  description: "Ambient AI medical scribe for ENT — Record a patient visit, get a structured clinical note. Powered by Whisper + GPT-4o.",
+  keywords: ["AI medical scribe", "ENT", "EHR", "clinical documentation", "healthcare", "medical transcription"],
+  openGraph: {
+    title: "ENT Scribe - Focus on Patients, Not Paperwork",
+    description: "The AI-powered medical scribe that listens, transcribes, and generates clinical notes in real-time.",
+    type: "website",
+  },
 };
 
 export const viewport = {
@@ -20,13 +25,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+      </head>
       <body className="antialiased">
-        <div className="flex h-screen overflow-hidden bg-neutral-50">
-          <Sidebar />
-          <main className="flex-1 overflow-auto">
-            {children}
-          </main>
-        </div>
+        {children}
       </body>
     </html>
   );
