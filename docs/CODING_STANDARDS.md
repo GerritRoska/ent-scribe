@@ -1604,7 +1604,7 @@ const nextConfig: NextConfig = {
               "img-src 'self' data: https:",
               "font-src 'self'",
               "connect-src 'self' https://api.openai.com",
-              "frame-ancestors 'self' chrome-extension://*",
+              "frame-ancestors 'self'",
               "form-action 'self'",
             ].join('; '),
           },
@@ -1642,7 +1642,6 @@ Restrict CORS to trusted domains only:
 const TRUSTED_ORIGINS = [
   'https://entscribe.com',
   'https://app.entscribe.com',
-  'chrome-extension://*', // Chrome extension
 ];
 
 export function isTrustedOrigin(origin: string | null): boolean {

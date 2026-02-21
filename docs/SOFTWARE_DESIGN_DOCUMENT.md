@@ -6,6 +6,9 @@
 **Last Updated:** 2026-02-20
 
 ---
+> Implementation progress is tracked in `docs/IMPLEMENTATION_ROADMAP.md`.  
+> After each checkpoint, update the roadmap and `docs/STATUS.md` so new sessions can resume cleanly.
+
 
 ## 1. Executive Summary
 

@@ -2,7 +2,20 @@
 
 **Version:** 1.0
 **Status:** Ready for parallel team development
-**Last Updated:** 2026-02-20
+**Last Updated:** 2026-02-21
+
+## Progress Tracking (Source of Truth)
+
+**Last Completed Checkpoint:** _TBD_  
+**In Progress:** _TBD_  
+**Next Up:** _TBD_
+
+Update this file after each checkpoint and also update `docs/STATUS.md` so new sessions can resume quickly.
+
+**Checkpoint Closure Checklist**
+- [ ] Mark the completed checkpoint in this roadmap
+- [ ] Update `docs/STATUS.md`
+- [ ] Note any blockers or follow-ups
 
 ---
 

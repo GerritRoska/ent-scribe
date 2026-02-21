@@ -7,6 +7,7 @@
 **Dependencies:** Recording component (2_RECORDING_INSTRUCTIONS.md)
 
 ---
+> After completing this module, update `docs/IMPLEMENTATION_ROADMAP.md` and `docs/STATUS.md`.
 
 ## Objective
 

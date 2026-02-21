@@ -7,6 +7,7 @@
 **Dependencies:** Auth component (1_AUTH_INSTRUCTIONS.md)
 
 ---
+> After completing this module, update `docs/IMPLEMENTATION_ROADMAP.md` and `docs/STATUS.md`.
 
 ## Objective
 

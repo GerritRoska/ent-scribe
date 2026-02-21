@@ -7,6 +7,7 @@
 **Dependencies:** Supabase project setup, environment variables
 
 ---
+> After completing this module, update `docs/IMPLEMENTATION_ROADMAP.md` and `docs/STATUS.md`.
 
 ## Objective
 
