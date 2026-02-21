@@ -195,7 +195,7 @@ Backend: "Auth routes done. Need frontend to test signup flow."
 ### Stage 1: Feature Branches
 - Frontend commits to `claude/review-codebase-nh6L5-frontend`
 - Backend commits to `claude/review-codebase-nh6L5-backend`
-- Each runs Code Review + QA sub-agents (see IMPLEMENTATION_ROADMAP.md)
+- Each runs Code Review + QA sub-agents (see docs/IMPLEMENTATION_ROADMAP.md)
 
 ### Stage 2: Integration Branch (Optional)
 - After checkpoint, merge both into `integrate-branch`

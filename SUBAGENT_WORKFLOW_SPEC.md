@@ -16,7 +16,7 @@ Git Commit on Feature Branch
     │   ├─ Run linting/formatting
     │   ├─ Check security
     │   ├─ Verify CODING_STANDARDS.md compliance
-    │   ├─ Cross-check IMPLEMENTATION_ROADMAP.md
+    │   ├─ Cross-check docs/IMPLEMENTATION_ROADMAP.md
     │   └─ Auto-fix + commit if fixable
     │
     ├─→ Sub-Agent 2: UI TESTING (Frontend only)
@@ -143,7 +143,7 @@ const fetchData = async () => {
 
 #### 1.5 Checkpoint Verification (Backend)
 **For backend commits, verify:**
-- [ ] API routes match IMPLEMENTATION_ROADMAP.md
+- [ ] API routes match docs/IMPLEMENTATION_ROADMAP.md
 - [ ] Database changes match schema
 - [ ] Error responses include proper status codes
 - [ ] Response format matches spec
@@ -151,7 +151,7 @@ const fetchData = async () => {
 **Example API check:**
 ```typescript
 // Checkpoint 1.1: Auth Routes
-// Expected response format from IMPLEMENTATION_ROADMAP.md
+// Expected response format from docs/IMPLEMENTATION_ROADMAP.md
 {
   "success": boolean,
   "data": { user: {...} },
@@ -184,7 +184,7 @@ const fetchData = async () => {
 - Security: No secrets found
 - HIPAA: All checks passed
 - Standards: TypeScript strict ✓
-- Checkpoint: Matches IMPLEMENTATION_ROADMAP.md
+- Checkpoint: Matches docs/IMPLEMENTATION_ROADMAP.md
 ```
 
 **Failure case:**

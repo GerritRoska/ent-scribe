@@ -18,13 +18,13 @@
    - API endpoints defined
    - Scalability considerations for 1000+ users
 
-2. **PHASE2_DESIGN_DOCUMENT.md** (10 pages)
+2. **docs/PHASE2_DESIGN_DOCUMENT.md** (10 pages)
    - EHR integrations (eClinicalWorks, Epic, Cerner, FHIR/HL7)
    - AI training on doctor's past data
    - Advanced features (ICD-10 codes, gap detection, interactive scribe)
    - Phase 2 architecture & roadmap
 
-3. **IMPLEMENTATION_ROADMAP.md** (8 pages)
+3. **docs/IMPLEMENTATION_ROADMAP.md** (8 pages)
    - 6-week implementation timeline
    - Week-by-week breakdown
    - Component dependency graph
@@ -268,7 +268,7 @@ cp .env.example .env.local
 npm run dev
 # Open http://localhost:3000
 
-# 5. Review software_design_document.md and IMPLEMENTATION_ROADMAP.md
+# 5. Review software_design_document.md and docs/IMPLEMENTATION_ROADMAP.md
 # Then follow 1_AUTH_INSTRUCTIONS.md
 ```
 
@@ -285,8 +285,8 @@ npm run dev
 ```
 /docs/
 ├── SOFTWARE_DESIGN_DOCUMENT.md (architecture, schema, APIs)
-├── PHASE2_DESIGN_DOCUMENT.md (EHR integrations, Phase 2 roadmap)
-├── IMPLEMENTATION_ROADMAP.md (6-week timeline, testing, deployment)
+├── docs/PHASE2_DESIGN_DOCUMENT.md (EHR integrations, Phase 2 roadmap)
+├── docs/IMPLEMENTATION_ROADMAP.md (6-week timeline, testing, deployment)
 ├── V1_LAUNCH_SUMMARY.md (THIS FILE)
 ├── THEME.md (in progress)
 ├── CODING_STANDARDS.md (in progress)
@@ -348,7 +348,7 @@ npm run dev
 
 ## 🤝 Next Steps
 
-1. **Assign developers** to each component (see IMPLEMENTATION_ROADMAP.md)
+1. **Assign developers** to each component (see docs/IMPLEMENTATION_ROADMAP.md)
 2. **Start Week 1** with 1_AUTH_INSTRUCTIONS.md
 3. **Wait for THEME.md & CODING_STANDARDS.md** (sub-agents completing)
 4. **Set up Supabase, Google OAuth, Deepgram, Claude API keys**
@@ -363,7 +363,7 @@ Refer to the relevant documentation:
 - **Coding standards** → CODING_STANDARDS.md (coming)
 - **Design system** → THEME.md (coming)
 - **Implementation details** → IMPLEMENTATION/*.md files
-- **Timeline & workflow** → IMPLEMENTATION_ROADMAP.md
+- **Timeline & workflow** → docs/IMPLEMENTATION_ROADMAP.md
 
 ---
 

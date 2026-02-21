@@ -11,8 +11,8 @@
 
 ### ✅ Complete Documentation
 - [x] **SOFTWARE_DESIGN_DOCUMENT.md** - Full architecture, database schema, APIs
-- [x] **PHASE2_DESIGN_DOCUMENT.md** - Future roadmap (EHR integrations, advanced AI)
-- [x] **IMPLEMENTATION_ROADMAP.md** - Week-by-week timeline with checkpoints
+- [x] **docs/PHASE2_DESIGN_DOCUMENT.md** - Future roadmap (EHR integrations, advanced AI)
+- [x] **docs/IMPLEMENTATION_ROADMAP.md** - Week-by-week timeline with checkpoints
 - [x] **V1_LAUNCH_SUMMARY.md** - Scope summary and success criteria
 - [x] **Component Instructions (3 of 8 started):**
   - [x] **1_AUTH_INSTRUCTIONS.md** - Complete with code examples
@@ -193,7 +193,7 @@ npm run build             # Ensure build works
 **Start here:**
 1. This file (QUICK_START.md) - 5 min read
 2. SOFTWARE_DESIGN_DOCUMENT.md - 20 min read (skim architecture section)
-3. IMPLEMENTATION_ROADMAP.md - 10 min read (understand timeline)
+3. docs/IMPLEMENTATION_ROADMAP.md - 10 min read (understand timeline)
 
 **Before coding your component:**
 1. Read your component's INSTRUCTIONS.md file
@@ -314,7 +314,7 @@ A: It's being researched by a sub-agent. In the meantime, follow Tailwind CSS be
 A: Check your API key in .env.local. If the key is valid, check the [Deepgram docs](https://developers.deepgram.com/).
 
 **Q: How do I deploy?**
-A: Follow IMPLEMENTATION_ROADMAP.md Week 6 section. Vercel handles deployment automatically.
+A: Follow docs/IMPLEMENTATION_ROADMAP.md Week 6 section. Vercel handles deployment automatically.
 
 **Q: Can I work on multiple components at once?**
 A: Yes, but coordinate with other developers to avoid conflicts. Recommended: 1 dev per component.
